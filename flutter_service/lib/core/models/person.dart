@@ -9,7 +9,7 @@ class Person {
   String gender;
   String homeworld;
   List<String> films;
-  List<Null> species;
+  List<String> species;
   List<String> vehicles;
   List<String> starships;
   String created;
@@ -44,26 +44,17 @@ class Person {
     birthYear = json['birth_year'];
     gender = json['gender'];
     homeworld = json['homeworld'];
+    films = json['films'].cast<String>();
+    species = json['species'].cast<String>();
+    vehicles = json['vehicles'].cast<String>();
+    starships = json['starships'].cast<String>();
     created = json['created'];
     edited = json['edited'];
     url = json['url'];
   }
 
-  static Person fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-    return Person(
-        name: map['name'],
-        height: map['height'],
-        mass: map['mass'],
-        hairColor: map['hair_color'],
-        skinColor: map['skin_color'],
-        eyeColor: map['eye_color'],
-        birthYear: map['birth_year'],
-        gender: map['gender'],
-        homeworld: map['homeworld'],
-        created: map['created'],
-        edited: map['edited'],
-        url: map['url']);
+  static Person fromMap(Map<String, dynamic> json) {
+    return Person.fromJson(json);
   }
 
   Map<String, dynamic> toJson() {
@@ -77,6 +68,10 @@ class Person {
     data['birth_year'] = this.birthYear;
     data['gender'] = this.gender;
     data['homeworld'] = this.homeworld;
+    data['films'] = this.films;
+    data['species'] = this.species;
+    data['vehicles'] = this.vehicles;
+    data['starships'] = this.starships;
     data['created'] = this.created;
     data['edited'] = this.edited;
     data['url'] = this.url;

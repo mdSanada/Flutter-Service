@@ -94,8 +94,8 @@ class CardDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Form_text(
-                          title: 'skin color:',
-                          value: _homeViewModel.person.skinColor),
+                          title: 'hair color:',
+                          value: _homeViewModel.person.hairColor),
                     ],
                   ),
                 ],

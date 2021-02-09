@@ -45,12 +45,13 @@ class _HomeViewState extends State<HomeView> {
                         Row(
                           children: [
                             Flexible(
-                                child: TextField(
-                                    controller:
-                                        _homeController.searchController,
-                                    onChanged: (value) async {
-                                      _homeController.setSearchData(value);
-                                    })),
+                              child: TextField(
+                                controller: _homeController.searchController,
+                                onChanged: (value) async {
+                                  _homeController.setSearchData(value);
+                                },
+                              ),
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: FlatButton(
@@ -78,37 +79,49 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ),
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: _width - 40,
-                          color: Colors.transparent,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color:
-                                  Theme.of(context).accentColor.withAlpha(150),
-                              borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(40.0),
-                                topRight: const Radius.circular(40.0),
-                              ),
+                  Observer(builder: (context) {
+                    bool isError = _homeViewModel.isError;
+                    return isError
+                        ? Container()
+                        : Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: _width - 40,
+                                  color: Colors.transparent,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .accentColor
+                                          .withAlpha(150),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: const Radius.circular(40.0),
+                                        topRight: const Radius.circular(40.0),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Column(
+                                        children: [
+                                          CardDetails(
+                                              width: _width,
+                                              homeViewModel: _homeViewModel)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Image(
+                                  width: _width - 40,
+                                  height: _width - 40,
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(_homeViewModel.imageUrl),
+                                )
+                              ],
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  CardDetails(
-                                      width: _width,
-                                      homeViewModel: _homeViewModel)
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                          );
+                  }),
                 ],
               );
       }),

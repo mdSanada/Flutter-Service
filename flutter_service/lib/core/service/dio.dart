@@ -8,6 +8,7 @@ class CustomDio {
 
   CustomDio() {
     _dio = Dio();
+    _dio.options.baseUrl = Service.baseUrl;
   }
 
   CustomDio.withAuthentication() {
@@ -15,7 +16,12 @@ class CustomDio {
     _dio.options.baseUrl = Service.baseUrl;
     _dio.interceptors.add(CustomInterceptors());
     _dio.options.connectTimeout = 5000;
+  }
 
+  CustomDio.pexels() {
+    _dio = Dio();
+    _dio.options.baseUrl = Service.baseUrlPexel;
     _dio.interceptors.add(CustomInterceptors());
+    _dio.options.connectTimeout = 5000;
   }
 }

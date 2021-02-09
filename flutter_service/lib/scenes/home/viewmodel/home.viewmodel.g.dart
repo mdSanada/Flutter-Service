@@ -15,19 +15,26 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
   bool get isError => (_$isErrorComputed ??= Computed<bool>(() => super.isError,
           name: '_HomeViewModelBase.isError'))
       .value;
-
-  final _$isLoadingAtom = Atom(name: '_HomeViewModelBase.isLoading');
+  Computed<bool> _$isLoadingComputed;
 
   @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
+  bool get isLoading =>
+      (_$isLoadingComputed ??= Computed<bool>(() => super.isLoading,
+              name: '_HomeViewModelBase.isLoading'))
+          .value;
+
+  final _$onLoadingAtom = Atom(name: '_HomeViewModelBase.onLoading');
+
+  @override
+  bool get onLoading {
+    _$onLoadingAtom.reportRead();
+    return super.onLoading;
   }
 
   @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
+  set onLoading(bool value) {
+    _$onLoadingAtom.reportWrite(value, super.onLoading, () {
+      super.onLoading = value;
     });
   }
 
@@ -76,11 +83,33 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
     });
   }
 
+  final _$imageUrlAtom = Atom(name: '_HomeViewModelBase.imageUrl');
+
+  @override
+  String get imageUrl {
+    _$imageUrlAtom.reportRead();
+    return super.imageUrl;
+  }
+
+  @override
+  set imageUrl(String value) {
+    _$imageUrlAtom.reportWrite(value, super.imageUrl, () {
+      super.imageUrl = value;
+    });
+  }
+
   final _$searchDataAsyncAction = AsyncAction('_HomeViewModelBase.searchData');
 
   @override
-  Future<ApiResponse<Person>> searchData() {
+  Future searchData() {
     return _$searchDataAsyncAction.run(() => super.searchData());
+  }
+
+  final _$getImageAsyncAction = AsyncAction('_HomeViewModelBase.getImage');
+
+  @override
+  Future getImage() {
+    return _$getImageAsyncAction.run(() => super.getImage());
   }
 
   final _$_HomeViewModelBaseActionController =
@@ -131,13 +160,26 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
   }
 
   @override
+  dynamic setImage(ImagePexels _image) {
+    final _$actionInfo = _$_HomeViewModelBaseActionController.startAction(
+        name: '_HomeViewModelBase.setImage');
+    try {
+      return super.setImage(_image);
+    } finally {
+      _$_HomeViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-isLoading: ${isLoading},
+onLoading: ${onLoading},
 onError: ${onError},
 person: ${person},
 search: ${search},
-isError: ${isError}
+imageUrl: ${imageUrl},
+isError: ${isError},
+isLoading: ${isLoading}
     ''';
   }
 }
