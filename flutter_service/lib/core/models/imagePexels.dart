@@ -21,6 +21,10 @@ class ImagePexels {
     nextPage = json['next_page'];
   }
 
+  static ImagePexels fromMap(Map<String, dynamic> json) {
+    return ImagePexels.fromJson(json);
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['total_results'] = this.totalResults;

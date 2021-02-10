@@ -77,7 +77,7 @@ abstract class _HomeViewModelBase with Store {
     setLoading(true);
     var response = _repository.getData(search);
     await response.subscribe(
-      // mapper: Person.fromMap,
+      mapper: Person.fromMap,
       onSuccess: (data) {
         setPerson(data);
       },
@@ -92,7 +92,8 @@ abstract class _HomeViewModelBase with Store {
   getImage() async {
     setLoading(true);
     var response = _repository.getImage(person.name);
-    response.subscribe(
+    await response.subscribe(
+      mapper: ImagePexels.fromMap,
       onSuccess: (data) {
         print(data);
         setImage(data);
