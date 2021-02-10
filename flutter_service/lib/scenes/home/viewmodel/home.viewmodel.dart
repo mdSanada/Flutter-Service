@@ -30,7 +30,8 @@ abstract class _HomeViewModelBase with Store {
   bool get isError => (!onLoading && onError);
 
   @computed
-  bool get isLoading => (onLoading || (person == null) || (imageUrl == null));
+  bool get isLoading =>
+      ((onLoading || (person == null) || (imageUrl == null)) && !onError);
 
   @action
   setLoading(bool _isLoading) {
@@ -75,12 +76,13 @@ abstract class _HomeViewModelBase with Store {
     imageUrl = null;
     setLoading(true);
     var response = _repository.getData(search);
-    response.subscribe(
+    await response.subscribe(
       // mapper: Person.fromMap,
       onSuccess: (data) {
         setPerson(data);
       },
       onError: (data) {
+        print(data);
         setErrorState();
       },
     );
@@ -96,6 +98,7 @@ abstract class _HomeViewModelBase with Store {
         setImage(data);
       },
       onError: (data) {
+        print(data);
         setErrorState();
       },
     );

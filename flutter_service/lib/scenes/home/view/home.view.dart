@@ -80,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   Observer(builder: (context) {
-                    bool isError = _homeViewModel.isError;
+                    bool isError = _homeViewModel.onError;
                     return isError
                         ? Container()
                         : Center(
