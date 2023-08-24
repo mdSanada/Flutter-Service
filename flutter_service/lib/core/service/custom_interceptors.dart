@@ -9,7 +9,7 @@ class CustomInterceptors extends InterceptorsWrapper {
     if (options.baseUrl == Service.baseUrlPexel) {
       options.headers = {
         "Authorization":
-            "563492ad6f91700001000001998408b0eabc4221a99350d81ccfbe11"
+            "TOKEN"
       };
     }
     LogHttp.logRequest(options);
